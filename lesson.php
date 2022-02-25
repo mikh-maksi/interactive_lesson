@@ -42,16 +42,20 @@
         var obj= {};
         async function f(ob) {
             console.log(ob);
-                let response = fetch('lesson_back.php', {
+                fetch('lesson_back.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
                     },
                     body: JSON.stringify(ob)
+                }).then(re => re.json())
+                .then(function (quiz) {
+                    console.log("---");
+                    console.log(quiz);
+                    console.log("---");
+                    
                 });
-                let resp = await response;
-                console.log(resp);
-                return resp;
+             return '';
             }
 
         //sndresFnc();

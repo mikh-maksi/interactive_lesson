@@ -27,11 +27,13 @@ function lesson_actions($les_id,$mysqli){
 
         if ($result = $mysqli->query($sql)) {
         while($row = $result->fetch_array() ){                
+            // echo ($row[0].'<br>');
             array_push($arr_users,$row[0]);
         }}
     
     // Массив с id пользователей на уроке.
     $arr_users=  array_unique($arr_users);
+    // print_r($arr_users);
     
     $sql = "SELECT task_number FROM lessons WHERE id = $les_id"; 
     if ($result = $mysqli->query($sql)) {
@@ -40,9 +42,11 @@ function lesson_actions($les_id,$mysqli){
     }
 
     $arr_action = array();
+    // print_r($arr_action);
     foreach ($arr_users as $value){
        $arr_action_user = array();
         for ($i=1;$i<=$task_number;$i++){
+            // echo ($i." ");
             $sql = "SELECT * FROM action WHERE task_id = $i AND lesson_id = $les_id AND student_id = $value"; 
             if ($result = $mysqli->query($sql)) {
                 $val_out = 0;
@@ -59,6 +63,8 @@ function lesson_actions($les_id,$mysqli){
     return $arr_action;
 }
 
+echo "-->";
 echo(json_encode(lesson_actions(1,$mysqli)));
+echo "<--";
 
 ?>
